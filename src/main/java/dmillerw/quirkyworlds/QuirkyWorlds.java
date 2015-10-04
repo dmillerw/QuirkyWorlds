@@ -1,15 +1,15 @@
 package dmillerw.quirkyworlds;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 import dmillerw.quirkyworlds.command.CommandTPX;
-import dmillerw.quirkyworlds.data.enums.Terrain;
-import dmillerw.quirkyworlds.data.struct.Dimension;
-import dmillerw.quirkyworlds.data.world.generic.GenericWorldProvider;
-import net.minecraftforge.common.DimensionManager;
+import dmillerw.quirkyworlds.data.loader.DimensionLoader;
+import dmillerw.quirkyworlds.data.world.generic.GenericWorldGenerator;
+
+import java.io.File;
 
 /**
  * @author dmillerw
@@ -21,20 +21,22 @@ public class QuirkyWorlds {
     public static final String NAME = ID;
     public static final String VERSION = "%MOD_VERSION%";
 
-    public static Dimension dimension;
+    public static File dimensionDir;
 
     @Mod.EventHandler
-    public void postInit(FMLPreInitializationEvent event) {
-        dimension = new Dimension();
-        dimension.dimension.numbers = new int[5];
-        dimension.terrain.type = Terrain.VANILLA;
-        dimension.terrain.data = new JsonObject();
-        JsonObject base = new JsonObject();
-        base.add("block", new JsonPrimitive("dirt"));
-        dimension.terrain.data.add("base_block", base);
+    public void preInit(FMLPreInitializationEvent event) {
+        dimensionDir = new File(event.getModConfigurationDirectory(), "QuirkyWorlds/dimensions");
+        if (!dimensionDir.exists())
+            dimensionDir.mkdirs();
 
-        DimensionManager.registerProviderType(11, GenericWorldProvider.class, false);
-        DimensionManager.registerDimension(11, 11);
+        DimensionLoader.initialize(dimensionDir);
+
+        GameRegistry.registerWorldGenerator(new GenericWorldGenerator(), 1000);
+    }
+
+    @Mod.EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
+        DimensionLoader.registerDimensions();
     }
 
     @Mod.EventHandler

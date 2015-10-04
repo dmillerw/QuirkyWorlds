@@ -6,6 +6,7 @@ import dmillerw.quirkyworlds.data.json.deserializer.BlockDeserializer;
 import dmillerw.quirkyworlds.data.json.deserializer.RangeDeserializer;
 import dmillerw.quirkyworlds.data.json.deserializer.Vec3Deserializer;
 import dmillerw.quirkyworlds.data.json.serializer.BlockSerializer;
+import dmillerw.quirkyworlds.data.json.serializer.RangeSerializer;
 import dmillerw.quirkyworlds.data.json.serializer.Vec3Serializer;
 import dmillerw.quirkyworlds.data.struct.Range;
 import net.minecraft.block.Block;
@@ -30,6 +31,7 @@ public class GsonUtils {
             // SERIALIZER
             builder.registerTypeAdapter(Block.class, new BlockSerializer());
             builder.registerTypeAdapter(Vec3.class, new Vec3Serializer());
+            builder.registerTypeAdapter(Range.class, new RangeSerializer());
 
             gson = builder.create();
         }

@@ -1,6 +1,6 @@
 package dmillerw.quirkyworlds.data.world.generic;
 
-import dmillerw.quirkyworlds.QuirkyWorlds;
+import dmillerw.quirkyworlds.data.loader.DimensionLoader;
 import dmillerw.quirkyworlds.data.struct.Dimension;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -42,7 +42,7 @@ public class GenericWorldProvider extends WorldProvider {
 
     @Override
     protected void registerWorldChunkManager() {
-        dimension = QuirkyWorlds.dimension;
+        dimension = DimensionLoader.get(worldObj.provider.dimensionId);
         worldChunkMgr = new WorldChunkManager(seed, worldObj.getWorldInfo().getTerrainType());
     }
 
@@ -53,7 +53,7 @@ public class GenericWorldProvider extends WorldProvider {
 
     @Override
     public String getDimensionName() {
-        return "QuirkyWorlds/Dimension";
+        return "QuirkyWorlds:" + dimension.name;
     }
 
     @Override
@@ -71,7 +71,33 @@ public class GenericWorldProvider extends WorldProvider {
         return 256;
     }
 
+    @Override
+    public float calculateCelestialAngle(long time, float partial) {
+        switch (dimension.time) {
+            case DAWN: return 0.75F;
+            case MIDDAY: return 0F;
+            case DUSK: return 0.25F;
+            case MIDNIGHT: return 0.5F;
+            default: return super.calculateCelestialAngle(time, partial);
+        }
+    }
+
     // CLIENT
+    @Override
+    public IRenderHandler getSkyRenderer() {
+        return dimension.clientInfo.renderSky ? super.getSkyRenderer() : BLANK;
+    }
+
+    @Override
+    public IRenderHandler getCloudRenderer() {
+        return dimension.clientInfo.renderClouds ? super.getCloudRenderer() : BLANK;
+    }
+
+    @Override
+    public float[] calcSunriseSunsetColors(float p_76560_1_, float p_76560_2_) {
+        return dimension.clientInfo.renderSky ? super.calcSunriseSunsetColors(p_76560_1_, p_76560_2_) : new float[] {0, 0, 0, 0};
+    }
+
     @Override
     public Vec3 getSkyColor(Entity cameraEntity, float partialTicks) {
         if (dimension.clientInfo.skyColor == null)

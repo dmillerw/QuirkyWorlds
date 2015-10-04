@@ -23,7 +23,6 @@ public class RangeDeserializer implements JsonDeserializer<Range> {
                 String string = primitive.getAsString();
                 if (string.contains("-")) {
                     String[] split = string.split("-");
-                    System.out.println(Arrays.toString(split));
                     int left = Integer.parseInt(split[0]);
                     int right = Integer.parseInt(split[1]);
                     if (left < right) {

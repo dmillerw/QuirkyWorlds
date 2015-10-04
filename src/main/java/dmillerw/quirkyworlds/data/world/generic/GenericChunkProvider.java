@@ -1,6 +1,6 @@
 package dmillerw.quirkyworlds.data.world.generic;
 
-import dmillerw.quirkyworlds.QuirkyWorlds;
+import dmillerw.quirkyworlds.data.loader.DimensionLoader;
 import dmillerw.quirkyworlds.data.struct.Dimension;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -42,7 +42,7 @@ public class GenericChunkProvider implements IChunkProvider {
         this.world = world;
         this.seed = seed;
         this.random = new Random((seed + 516) * 314);
-        this.dimension = QuirkyWorlds.dimension;
+        this.dimension = DimensionLoader.get(world.provider.dimensionId);
         this.terrainProvider = dimension.terrain.type.get();
         this.terrainProvider.configure(dimension.terrain.data);
         this.terrainProvider.setup(world, this);
