@@ -1,11 +1,11 @@
-package dmillerw.quirkyworlds.data.terrain;
+package dmillerw.quirkyworlds.data.world.terrain;
 
 import com.google.gson.JsonObject;
 import cpw.mods.fml.common.eventhandler.Event;
-import dmillerw.quirkyworlds.data.generic.GenericChunkProvider;
-import dmillerw.quirkyworlds.data.generic.GenericTerrainProvider;
+import dmillerw.quirkyworlds.data.world.generic.GenericChunkProvider;
+import dmillerw.quirkyworlds.data.world.generic.GenericTerrainProvider;
 import dmillerw.quirkyworlds.data.struct.BaseBlock;
-import dmillerw.quirkyworlds.util.GsonUtil;
+import dmillerw.quirkyworlds.util.GsonUtils;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
@@ -62,7 +62,7 @@ public class VanillaTerrainGenerator extends GenericTerrainProvider {
     @Override
     public void configure(JsonObject data) {
         if (data.has("base_block")) {
-            baseBlock = GsonUtil.gson().fromJson(data.get("base_block"), BaseBlock.class);
+            baseBlock = GsonUtils.gson().fromJson(data.get("base_block"), BaseBlock.class);
         } else {
             baseBlock = new BaseBlock();
             baseBlock.block = Blocks.dirt;
@@ -70,7 +70,7 @@ public class VanillaTerrainGenerator extends GenericTerrainProvider {
         }
 
         if (data.has("base_liquid")) {
-            baseLiquid = GsonUtil.gson().fromJson(data.get("base_liquid"), Block.class);
+            baseLiquid = GsonUtils.gson().fromJson(data.get("base_liquid"), Block.class);
         } else {
             baseLiquid = Blocks.water;
         }
@@ -254,11 +254,11 @@ public class VanillaTerrainGenerator extends GenericTerrainProvider {
                                 if ((d15 += d16) > 0.0D) {
                                     aBlock[index] = baseBlock.block;
                                     byte realMeta;
-                                    if (baseBlock.meta == 127) {
-                                        realMeta = (byte) ((height / 2 + x / 2 + z / 2) & 0xf);
-                                    } else {
+//                                    if (baseBlock.meta == 127) {
+//                                        realMeta = (byte) ((height / 2 + x / 2 + z / 2) & 0xf);
+//                                    } else {
                                         realMeta = (byte) baseBlock.meta;
-                                    }
+//                                    }
                                     meta[index] = realMeta;
                                 } else if (height < waterLevel) {
                                     aBlock[index] = baseLiquid;

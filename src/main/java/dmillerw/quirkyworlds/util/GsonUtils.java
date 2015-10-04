@@ -3,13 +3,18 @@ package dmillerw.quirkyworlds.util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dmillerw.quirkyworlds.data.json.deserializer.BlockDeserializer;
+import dmillerw.quirkyworlds.data.json.deserializer.RangeDeserializer;
+import dmillerw.quirkyworlds.data.json.deserializer.Vec3Deserializer;
 import dmillerw.quirkyworlds.data.json.serializer.BlockSerializer;
+import dmillerw.quirkyworlds.data.json.serializer.Vec3Serializer;
+import dmillerw.quirkyworlds.data.struct.Range;
 import net.minecraft.block.Block;
+import net.minecraft.util.Vec3;
 
 /**
  * @author dmillerw
  */
-public class GsonUtil {
+public class GsonUtils {
 
     private static Gson gson;
     public static Gson gson() {
@@ -19,9 +24,12 @@ public class GsonUtil {
 
             // DESERIALIZER
             builder.registerTypeAdapter(Block.class, new BlockDeserializer());
+            builder.registerTypeAdapter(Vec3.class, new Vec3Deserializer());
+            builder.registerTypeAdapter(Range.class, new RangeDeserializer());
 
             // SERIALIZER
             builder.registerTypeAdapter(Block.class, new BlockSerializer());
+            builder.registerTypeAdapter(Vec3.class, new Vec3Serializer());
 
             gson = builder.create();
         }

@@ -1,7 +1,7 @@
-package dmillerw.quirkyworlds.data.generic;
+package dmillerw.quirkyworlds.data.world.generic;
 
 import dmillerw.quirkyworlds.QuirkyWorlds;
-import dmillerw.quirkyworlds.data.DimensionInformation;
+import dmillerw.quirkyworlds.data.struct.Dimension;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
@@ -32,7 +32,7 @@ public class GenericChunkProvider implements IChunkProvider {
 
     private World world;
 
-    public DimensionInformation dimensionInformation;
+    public Dimension dimension;
 
     public BiomeGenBase[] biomesForGeneration;
 
@@ -42,9 +42,9 @@ public class GenericChunkProvider implements IChunkProvider {
         this.world = world;
         this.seed = seed;
         this.random = new Random((seed + 516) * 314);
-        this.dimensionInformation = QuirkyWorlds.dimensionInformation;
-        this.terrainProvider = dimensionInformation.terrain.type.get();
-        this.terrainProvider.configure(dimensionInformation.terrain.data);
+        this.dimension = QuirkyWorlds.dimension;
+        this.terrainProvider = dimension.terrain.type.get();
+        this.terrainProvider.configure(dimension.terrain.data);
         this.terrainProvider.setup(world, this);
     }
 
@@ -117,7 +117,7 @@ public class GenericChunkProvider implements IChunkProvider {
 
         //TODO Structures, etc
 
-        for (GenericFeature feature : dimensionInformation.features) {
+        for (GenericFeature feature : dimension.features) {
             feature.generate(provider, world, random, chunkX, chunkZ, biome, villages);
         }
 

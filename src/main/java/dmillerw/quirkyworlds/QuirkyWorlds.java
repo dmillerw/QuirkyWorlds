@@ -1,13 +1,14 @@
 package dmillerw.quirkyworlds;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import dmillerw.quirkyworlds.command.CommandBoop;
-import dmillerw.quirkyworlds.data.DimensionInformation;
+import dmillerw.quirkyworlds.command.CommandTPX;
 import dmillerw.quirkyworlds.data.enums.Terrain;
-import dmillerw.quirkyworlds.data.generic.GenericWorldProvider;
-import net.minecraft.util.Vec3;
+import dmillerw.quirkyworlds.data.struct.Dimension;
+import dmillerw.quirkyworlds.data.world.generic.GenericWorldProvider;
 import net.minecraftforge.common.DimensionManager;
 
 /**
@@ -20,23 +21,24 @@ public class QuirkyWorlds {
     public static final String NAME = ID;
     public static final String VERSION = "%MOD_VERSION%";
 
-    public static DimensionInformation dimensionInformation;
+    public static Dimension dimension;
 
     @Mod.EventHandler
     public void postInit(FMLPreInitializationEvent event) {
-        dimensionInformation = new DimensionInformation();
-        dimensionInformation.terrain.type = Terrain.VOID;
-        dimensionInformation.clientInfo.skyColor = Vec3.createVectorHelper(0, 0, 0);
-        dimensionInformation.clientInfo.fogColor = Vec3.createVectorHelper(0, 0, 0);
-        dimensionInformation.clientInfo.renderStars = false;
-        dimensionInformation.clientInfo.renderClouds = false;
+        dimension = new Dimension();
+        dimension.dimension.numbers = new int[5];
+        dimension.terrain.type = Terrain.VANILLA;
+        dimension.terrain.data = new JsonObject();
+        JsonObject base = new JsonObject();
+        base.add("block", new JsonPrimitive("dirt"));
+        dimension.terrain.data.add("base_block", base);
 
-        DimensionManager.registerProviderType(5, GenericWorldProvider.class, false);
-        DimensionManager.registerDimension(5, 5);
+        DimensionManager.registerProviderType(11, GenericWorldProvider.class, false);
+        DimensionManager.registerDimension(11, 11);
     }
 
     @Mod.EventHandler
     public void onServerStarting(FMLServerStartingEvent event) {
-        event.registerServerCommand(new CommandBoop());
+        event.registerServerCommand(new CommandTPX());
     }
 }

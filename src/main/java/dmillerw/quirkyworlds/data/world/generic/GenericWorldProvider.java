@@ -1,7 +1,7 @@
-package dmillerw.quirkyworlds.data.generic;
+package dmillerw.quirkyworlds.data.world.generic;
 
 import dmillerw.quirkyworlds.QuirkyWorlds;
-import dmillerw.quirkyworlds.data.DimensionInformation;
+import dmillerw.quirkyworlds.data.struct.Dimension;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.Entity;
@@ -29,7 +29,7 @@ public class GenericWorldProvider extends WorldProvider {
         return DimensionManager.createProviderFor(dim);
     }
 
-    private DimensionInformation dimensionInformation;
+    private Dimension dimension;
     private long seed;
 
     private long calculateSeed(long seed, int dim) {
@@ -42,7 +42,7 @@ public class GenericWorldProvider extends WorldProvider {
 
     @Override
     protected void registerWorldChunkManager() {
-        dimensionInformation = QuirkyWorlds.dimensionInformation;
+        dimension = QuirkyWorlds.dimension;
         worldChunkMgr = new WorldChunkManager(seed, worldObj.getWorldInfo().getTerrainType());
     }
 
@@ -73,28 +73,18 @@ public class GenericWorldProvider extends WorldProvider {
 
     // CLIENT
     @Override
-    public IRenderHandler getSkyRenderer() {
-        return dimensionInformation.clientInfo.renderStars ? super.getSkyRenderer() : BLANK;
-    }
-
-    @Override
-    public IRenderHandler getCloudRenderer() {
-        return dimensionInformation.clientInfo.renderClouds ? super.getCloudRenderer() : BLANK;
-    }
-
-    @Override
     public Vec3 getSkyColor(Entity cameraEntity, float partialTicks) {
-        if (dimensionInformation.clientInfo.skyColor == null)
+        if (dimension.clientInfo.skyColor == null)
             return super.getSkyColor(cameraEntity, partialTicks);
         else
-            return dimensionInformation.clientInfo.skyColor;
+            return dimension.clientInfo.skyColor;
     }
 
     @Override
     public Vec3 getFogColor(float partialTicks, float idk) {
-        if (dimensionInformation.clientInfo.fogColor == null)
+        if (dimension.clientInfo.fogColor == null)
             return super.getFogColor(partialTicks, idk);
         else
-            return dimensionInformation.clientInfo.fogColor;
+            return dimension.clientInfo.fogColor;
     }
 }

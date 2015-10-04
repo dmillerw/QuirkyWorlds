@@ -1,8 +1,8 @@
 package dmillerw.quirkyworlds.data.enums;
 
-import dmillerw.quirkyworlds.data.generic.GenericTerrainProvider;
-import dmillerw.quirkyworlds.data.terrain.VanillaTerrainGenerator;
-import dmillerw.quirkyworlds.data.terrain.VoidTerrainProvider;
+import dmillerw.quirkyworlds.data.world.generic.GenericTerrainProvider;
+import dmillerw.quirkyworlds.data.world.terrain.VanillaTerrainGenerator;
+import dmillerw.quirkyworlds.data.world.terrain.VoidTerrainProvider;
 
 public enum Terrain {
 

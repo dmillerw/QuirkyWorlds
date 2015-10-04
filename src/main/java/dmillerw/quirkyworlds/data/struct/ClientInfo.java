@@ -12,9 +12,4 @@ public class ClientInfo {
     public Vec3 skyColor;
     @SerializedName("fog_color")
     public Vec3 fogColor;
-
-    @SerializedName("render_stars")
-    public boolean renderStars = true;
-    @SerializedName("render_clouds")
-    public boolean renderClouds = true;
 }

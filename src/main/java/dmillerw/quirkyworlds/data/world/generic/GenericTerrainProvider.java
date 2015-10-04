@@ -1,4 +1,4 @@
-package dmillerw.quirkyworlds.data.generic;
+package dmillerw.quirkyworlds.data.world.generic;
 
 import com.google.gson.JsonObject;
 import net.minecraft.block.Block;

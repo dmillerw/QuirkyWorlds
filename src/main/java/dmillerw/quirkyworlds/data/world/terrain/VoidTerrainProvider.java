@@ -1,8 +1,8 @@
-package dmillerw.quirkyworlds.data.terrain;
+package dmillerw.quirkyworlds.data.world.terrain;
 
 import com.google.gson.JsonObject;
-import dmillerw.quirkyworlds.data.generic.GenericChunkProvider;
-import dmillerw.quirkyworlds.data.generic.GenericTerrainProvider;
+import dmillerw.quirkyworlds.data.world.generic.GenericChunkProvider;
+import dmillerw.quirkyworlds.data.world.generic.GenericTerrainProvider;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;

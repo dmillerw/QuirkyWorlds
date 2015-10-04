@@ -1,8 +1,8 @@
-package dmillerw.quirkyworlds.data.feature;
+package dmillerw.quirkyworlds.data.world.feature;
 
 import com.google.gson.JsonObject;
-import dmillerw.quirkyworlds.data.generic.GenericFeature;
-import dmillerw.quirkyworlds.util.GsonUtil;
+import dmillerw.quirkyworlds.data.world.generic.GenericFeature;
+import dmillerw.quirkyworlds.util.GsonUtils;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -26,7 +26,7 @@ public class FeatureLake extends GenericFeature {
     @Override
     public void configure(JsonObject data) {
         if (data.has("fluids")) {
-            fluids = GsonUtil.gson().fromJson(data.getAsJsonArray("fluids"), Block[].class);
+            fluids = GsonUtils.gson().fromJson(data.getAsJsonArray("fluids"), Block[].class);
         } else {
             fluids = new Block[0];
         }
