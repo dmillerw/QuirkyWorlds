@@ -36,16 +36,16 @@ public class DimensionLoader {
             try {
                 dimension = GsonUtils.gson().fromJson(new FileReader(file), Dimension.class);
             } catch (Exception ex) {
+                ex.printStackTrace();
                 continue;
             }
 
             if (dimension == null)
                 continue;
 
-            System.out.println(GsonUtils.gson().toJson(dimension));
-
             for (int i : dimension.dimension.numbers) {
                 dimension.dimension = null;
+                dimension.initialize();
                 activeDimensions.put(i, dimension);
             }
         }
@@ -58,5 +58,9 @@ public class DimensionLoader {
                 DimensionManager.registerDimension(id, id);
             }
         }
+    }
+
+    public static void dump() {
+        System.out.println(GsonUtils.gson().toJson(activeDimensions));
     }
 }

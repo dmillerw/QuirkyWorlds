@@ -8,7 +8,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.common.DimensionManager;
@@ -43,7 +42,7 @@ public class GenericWorldProvider extends WorldProvider {
     @Override
     protected void registerWorldChunkManager() {
         dimension = DimensionLoader.get(worldObj.provider.dimensionId);
-        worldChunkMgr = new WorldChunkManager(seed, worldObj.getWorldInfo().getTerrainType());
+        worldChunkMgr = new GenericWorldChunkManager(seed, worldObj.getWorldInfo().getTerrainType(), dimension);
     }
 
     @Override

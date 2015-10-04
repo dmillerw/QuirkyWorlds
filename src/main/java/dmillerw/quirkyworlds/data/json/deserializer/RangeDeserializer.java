@@ -4,7 +4,6 @@ import com.google.gson.*;
 import dmillerw.quirkyworlds.data.struct.Range;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
 
 /**
  * @author dmillerw
@@ -37,7 +36,11 @@ public class RangeDeserializer implements JsonDeserializer<Range> {
                         }
                     }
                 } else {
-                    throw new JsonParseException("Invalid range string: " + string);
+                    try {
+                        range.numbers = new int[] {Integer.parseInt(string)};
+                    } catch (NumberFormatException ignore) {
+                        throw new JsonParseException("Invalid range string: " + string);
+                    }
                 }
             }
         } else if (json.isJsonArray()) {

@@ -19,17 +19,13 @@ import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.Ev
 /**
  * @author dmillerw
  */
-public class FeatureLake extends GenericFeature {
+public class LakeFeature extends GenericFeature {
 
     private Block[] fluids;
 
     @Override
     public void configure(JsonObject data) {
-        if (data.has("fluids")) {
-            fluids = GsonUtils.gson().fromJson(data.getAsJsonArray("fluids"), Block[].class);
-        } else {
-            fluids = new Block[0];
-        }
+        fluids = GsonUtils.get(data, "fluids", Block[].class, new Block[0]);
     }
 
     @Override

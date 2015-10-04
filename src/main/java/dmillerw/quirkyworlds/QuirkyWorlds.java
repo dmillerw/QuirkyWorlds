@@ -5,6 +5,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import dmillerw.quirkyworlds.command.CommandDump;
 import dmillerw.quirkyworlds.command.CommandTPX;
 import dmillerw.quirkyworlds.data.loader.DimensionLoader;
 import dmillerw.quirkyworlds.data.world.generic.GenericWorldGenerator;
@@ -42,5 +43,6 @@ public class QuirkyWorlds {
     @Mod.EventHandler
     public void onServerStarting(FMLServerStartingEvent event) {
         event.registerServerCommand(new CommandTPX());
+        event.registerServerCommand(new CommandDump());
     }
 }

@@ -31,7 +31,7 @@ public class LakeTerrainProvider extends GenericTerrainProvider {
     }
 
     @Override
-    public void generate(int chunkX, int chunkZ, Block[] blocks, byte[] bytes) {
+    public void generate(int chunkX, int chunkZ, Block[] blocks, byte[] bytes, BiomeGenBase[] biomesForGeneration) {
         int index = 0;
         for (int x=0; x<16; x++) {
             for (int z=0; z<16; z++) {

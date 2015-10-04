@@ -23,7 +23,7 @@ public class VoidTerrainProvider extends GenericTerrainProvider {
     }
 
     @Override
-    public void generate(int chunkX, int chunkZ, Block[] blocks, byte[] bytes) {
+    public void generate(int chunkX, int chunkZ, Block[] blocks, byte[] bytes, BiomeGenBase[] biomesForGeneration) {
         for (int i = 0 ; i < 65536 ; i++) {
             blocks[i] = null;
         }

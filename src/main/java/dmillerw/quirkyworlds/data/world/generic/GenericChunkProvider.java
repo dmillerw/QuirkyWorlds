@@ -67,7 +67,7 @@ public class GenericChunkProvider implements IChunkProvider {
                 16,
                 16);
 
-        terrainProvider.generate(chunkX, chunkZ, blocks, bytes);
+        terrainProvider.generate(chunkX, chunkZ, blocks, bytes, biomesForGeneration);
 
         biomesForGeneration = world.getWorldChunkManager().loadBlockGeneratorData(
                 biomesForGeneration,
@@ -124,7 +124,9 @@ public class GenericChunkProvider implements IChunkProvider {
         boolean doGen = false;
         // Dungeon here yo
 
-        biome.decorate(world, random, x, z);
+        if (dimension.canDecorate(biome.biomeID))
+            biome.decorate(world, random, x, z);
+
         if (TerrainGen.populate(provider, world, random, chunkX, chunkZ, villages, ANIMALS)) {
             SpawnerAnimals.performWorldGenSpawning(world, biome, x + 8, z + 8, 16, 16, random);
         }
